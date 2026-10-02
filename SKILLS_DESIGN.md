@@ -1,30 +1,47 @@
 # OpenClaw Skills Design Blueprint
 
-## Skill 1: Automated Inbox Triage (Gmail ➔ Google Tasks)
+## Skill 1: Cross-Platform Chat Automation (Telegram ➔ Tools)
 ### 1. What does this skill do?
-Scans unread Gmail messages from the last 24 hours, filters out noise, and automatically populates Google Tasks with actionable summaries for items requiring your direct response or execution.
+Provides a natural language interface over Telegram (`vandu` bot) powered by a lightweight LLM (`deepseek-v4-flash`), allowing users to query live web APIs (like weather systems) and securely pair external application tokens using secure numeric and alphanumeric verification pins.
 
 ### 2. What input does the agent need?
-* **Runtime Input:** The raw text stream of unread emails retrieved via the Zapier Gmail integration hook.
-* **Static Context:** References `USER.md` to distinguish between low-priority newsletters and high-priority project communications (e.g., filtering out generic marketing while flagging GitHub thread updates or direct client emails).
+* **Runtime Input:** Conversational prompts via Telegram or terminal hooks (e.g., "Whats the weather like tomorrow?") and system initialization streams (e.g., `/start` commands and `openclaw pairing approve` triggers).
+* **Static Context:** Secure session handling (`litellm/openrouter`), configuration protocols, and device location logs provided dynamically during user setup (e.g., "LA, California").
 
 ### 3. What does a good output look like?
-* **Format:** A set of cleanly formatted tasks added to the "Inbox" list in Google Tasks. 
-* **Structure:** `[Action Verb] Brief Task Description - Due: [Date] | Context: [Sender Name]`.
-* **Destination:** Google Tasks catalog.
-* **Success Metric:** You can open your task manager every morning and see exactly what needs doing, with zero promotional spam leaking through.
+* **Format:** Real-time, cleanly bulleted chat summaries breaking down explicit metrics (High/Low temperatures, UV Indices, Sunshine duration, and weather context warnings).
+* **Destination:** Active Telegram user chat interface.
+* **Success Metric:** Zero-latency intent recognition that converts conversational user text into structured, tool-compatible parameters while handling multi-attempt failure exceptions gracefully.
 
 ---
 
-## Skill 2: Context-Aware Email Drafts (Gmail ➔ Drive)
+## Skill 2: Structured Document Orchestration (Composio ➔ Google Sheets)
 ### 1. What does this skill do?
-Generates context-aware, hyper-personalized response drafts inside Gmail based on brief, conversational bullet points provided by the user via Telegram or terminal prompt.
+Parses unstructured event data or complex multi-stage tournament plans (such as the FIFA World Cup 2026), builds custom spreadsheet matrix configurations, and fully populates tabular tracking logs down to localized dates, matchups, venues, and stage results.
 
 ### 2. What input does the agent need?
-* **Runtime Input:** A raw, messy prompt (e.g., "Tell Sarah I can make the 2 PM meeting but need to leave 10 minutes early").
-* **Static Context:** Cross-references `SOUL.md` for conversational voice (no robotic platitudes) and uses `USER.md` to append your precise professional sign-off and title conventions.
+* **Runtime Input:** Direct instructions to generate schedules or datasets (e.g., "make a google sheets sheet that has the schedule of the games in FIFA Worldcup2026").
+* **Static Context:** Scripted data schemas handled via automated shell scripting execution blocks to avoid parsing errors (such as nested punctuation/parentheses shell issues).
 
 ### 3. What does a good output look like?
-* **Format:** A fully staged draft matching the exact subject line thread or a cleanly formatted new draft message.
-* **Destination:** The `Drafts` folder in Gmail.
-* **Success Metric:** The draft requires less than a 10% structural rewrite (e.g., just reading it over, confirming details, and hitting 'Send').
+* **Format:** A fully formatted Google Spreadsheet containing specialized, logically grouped tab views (`Group Stage`, `Round of 32`, `Round of 16`, `Quarterfinals`, `Semifinals`, `Final`).
+* **Structure:** High-scannability column grids displaying chronological matchdays, operational group letters, matchup pairings, chronological kickoff times, and stadium venue metrics.
+* **Destination:** Dynamically generated sheets hosted via the Google Drive/Sheets workspace.
+* **Success Metric:** Complete data ingestion across dozens of rows spanning multiple worksheet categories, leaving no unhandled formulas or empty stages.
+
+---
+
+## Skill 3: Synchronized Workspace Event Scheduling (Composio ➔ Google Calendar)
+### 1. What does this skill do?
+Automates the lifecycle of calendar event curation by verifying read/write permissions via OAuth flows and converting raw, text-based schedules into highly detailed calendar milestones.
+
+### 2. What input does the agent need?
+* **Runtime Input:** Simple explicit intents (e.g., "Create a calendar event for the FIFA WORLDCUP 2026 FINAL game") alongside human-in-the-loop authorization signals ("go").
+* **Static Context:** Automated checks for existing authentication scopes to verify that the target calendar has direct write access rather than restrictive read-only profiles.
+
+### 3. What does a good output look like?
+* **Format:** Comprehensive Google Calendar block with optimized descriptive summaries (e.g., halftime show updates featuring specific performers).
+* **Structure:** Automated timezone translation mapping localized match times into dual references (e.g., 12:00 PM PT / 3:00 PM ET) anchored to a verified physical stadium location.
+* **Destination:** Target user's primary Google Calendar database.
+* **Success Metric:** Seamless generation of calendar blocks containing complete time spans, accurate location geocoding text, and built-in contextual alerts (e.g., 30-minute system notification reminders) without duplicate creations.
+
