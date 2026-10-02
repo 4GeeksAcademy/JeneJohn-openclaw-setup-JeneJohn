@@ -1,47 +1,135 @@
 # OpenClaw Skills Design Blueprint
 
-## Skill 1: Cross-Platform Chat Automation (Telegram ➔ Tools)
-### 1. What does this skill do?
-Provides a natural language interface over Telegram (`vandu` bot) powered by a lightweight LLM (`deepseek-v4-flash`), allowing users to query live web APIs (like weather systems) and securely pair external application tokens using secure numeric and alphanumeric verification pins.
-
-### 2. What input does the agent need?
-* **Runtime Input:** Conversational prompts via Telegram or terminal hooks (e.g., "Whats the weather like tomorrow?") and system initialization streams (e.g., `/start` commands and `openclaw pairing approve` triggers).
-* **Static Context:** Secure session handling (`litellm/openrouter`), configuration protocols, and device location logs provided dynamically during user setup (e.g., "LA, California").
-
-### 3. What does a good output look like?
-* **Format:** Real-time, cleanly bulleted chat summaries breaking down explicit metrics (High/Low temperatures, UV Indices, Sunshine duration, and weather context warnings).
-* **Destination:** Active Telegram user chat interface.
-* **Success Metric:** Zero-latency intent recognition that converts conversational user text into structured, tool-compatible parameters while handling multi-attempt failure exceptions gracefully.
+This project implements two custom OpenClaw skills focused on Jene's actual productivity workflows. Both skills use the persistent agent configuration in `IDENTITY.md`, `SOUL.md`, `AGENTS.md`, `USER.md`, and `TOOLS.md` rather than behaving like generic prompts.
 
 ---
 
-## Skill 2: Structured Document Orchestration (Composio ➔ Google Sheets)
+## Skill 1: Personal Project Planner
+
 ### 1. What does this skill do?
-Parses unstructured event data or complex multi-stage tournament plans (such as the FIFA World Cup 2026), builds custom spreadsheet matrix configurations, and fully populates tabular tracking logs down to localized dates, matchups, venues, and stage results.
+
+Turns a user's project or goal into a concise, prioritized action plan and, when requested, converts the actionable items into Google Tasks or proposed Google Calendar blocks.
 
 ### 2. What input does the agent need?
-* **Runtime Input:** Direct instructions to generate schedules or datasets (e.g., "make a google sheets sheet that has the schedule of the games in FIFA Worldcup2026").
-* **Static Context:** Scripted data schemas handled via automated shell scripting execution blocks to avoid parsing errors (such as nested punctuation/parentheses shell issues).
+
+**Runtime Input:**
+
+* A real project, goal, deadline, or set of commitments from Jene.
+* Optional constraints such as available time, deadline, priority, or preferred schedule.
+
+Example:
+
+> "Help me plan the next steps for my OpenClaw assignment. I want to finish the two skills and test them this week."
+
+**Static Context from the five configuration files:**
+
+* `IDENTITY.md` provides Nandu's identity and concise operational voice.
+* `SOUL.md` requires structured output, proactive problem solving, and careful handling of external writes.
+* `AGENTS.md` defines the `go` confirmation requirement for high-impact external changes.
+* `USER.md` provides Jene's current projects, technical preferences, and preference for concise bullet/table-based output.
+* `TOOLS.md` defines when to use Google Tasks and Google Calendar and the conventions for external writes.
 
 ### 3. What does a good output look like?
-* **Format:** A fully formatted Google Spreadsheet containing specialized, logically grouped tab views (`Group Stage`, `Round of 32`, `Round of 16`, `Quarterfinals`, `Semifinals`, `Final`).
-* **Structure:** High-scannability column grids displaying chronological matchdays, operational group letters, matchup pairings, chronological kickoff times, and stadium venue metrics.
-* **Destination:** Dynamically generated sheets hosted via the Google Drive/Sheets workspace.
-* **Success Metric:** Complete data ingestion across dozens of rows spanning multiple worksheet categories, leaving no unhandled formulas or empty stages.
+
+**Format:**
+
+* Short project objective.
+* Prioritized action list.
+* Dependencies or blockers.
+* Suggested next action.
+* Optional proposed calendar/task actions.
+
+**Destination:**
+
+* Normally returned in the conversation.
+* Google Tasks when the user asks to create actionable tasks.
+* Google Calendar only after required confirmation for permanent event creation or modification.
+
+**Success Criteria:**
+
+* The plan is specific to Jene's project rather than generic advice.
+* Tasks are actionable and ordered logically.
+* Existing constraints and deadlines are respected.
+* No duplicate tasks or unnecessary calendar events are created.
+* External mutations stop at the `go` confirmation boundary when required.
+* Any completed external write is verified.
 
 ---
 
-## Skill 3: Synchronized Workspace Event Scheduling (Composio ➔ Google Calendar)
+## Skill 2: Structured Learning & Project Log
+
 ### 1. What does this skill do?
-Automates the lifecycle of calendar event curation by verifying read/write permissions via OAuth flows and converting raw, text-based schedules into highly detailed calendar milestones.
+
+Converts Jene's rough learning notes, technical discoveries, decisions, and project progress into a concise structured entry and appends it to a persistent Google Doc.
 
 ### 2. What input does the agent need?
-* **Runtime Input:** Simple explicit intents (e.g., "Create a calendar event for the FIFA WORLDCUP 2026 FINAL game") alongside human-in-the-loop authorization signals ("go").
-* **Static Context:** Automated checks for existing authentication scopes to verify that the target calendar has direct write access rather than restrictive read-only profiles.
+
+**Runtime Input:**
+
+* Rough notes, lessons learned, project progress, technical discoveries, or decisions.
+
+Example:
+
+> "Today I figured out that OpenClaw was using the wrong workspace, so memory wasn't indexing the repo. I changed the workspace to the GitHub repo and disabled semantic search because no OpenAI key is configured."
+
+**Static Context from the five configuration files:**
+
+* `IDENTITY.md` establishes Nandu's precise, technical communication style.
+* `SOUL.md` instructs Nandu to be resourceful, structured, privacy-conscious, and concise.
+* `AGENTS.md` establishes memory hygiene, privacy rules, and verification requirements.
+* `USER.md` provides Jene's active OpenClaw project context and technical preferences.
+* `TOOLS.md` defines Google Docs usage, Drive conventions, and verification requirements.
 
 ### 3. What does a good output look like?
-* **Format:** Comprehensive Google Calendar block with optimized descriptive summaries (e.g., halftime show updates featuring specific performers).
-* **Structure:** Automated timezone translation mapping localized match times into dual references (e.g., 12:00 PM PT / 3:00 PM ET) anchored to a verified physical stadium location.
-* **Destination:** Target user's primary Google Calendar database.
-* **Success Metric:** Seamless generation of calendar blocks containing complete time spans, accurate location geocoding text, and built-in contextual alerts (e.g., 30-minute system notification reminders) without duplicate creations.
 
+**Format:**
+
+Each entry should contain:
+
+* **Date**
+* **Project**
+* **What changed**
+* **Key learning**
+* **Decision**
+* **Next step**
+* **Relevant technical notes**, when useful
+
+The entry should be concise and easy to scan later.
+
+**Destination:**
+
+* The structured result is shown to Jene for review.
+* After confirmation/authorization where required, the finalized entry is appended to the designated Google Doc.
+* Existing document structure should be preserved.
+
+**Success Criteria:**
+
+* The notes accurately reflect the user's actual input.
+* Important technical decisions are preserved without unnecessary narrative.
+* The output uses Jene's preferred concise structure.
+* No credentials, tokens, private identifiers, or other sensitive information are recorded.
+* The correct existing document is used rather than creating an unnecessary duplicate.
+* The Google Docs write is verified after completion.
+* The resulting entry is useful as future project context rather than being a raw transcript.
+
+---
+
+## Why These Two Skills
+
+### Personal Project Planner
+
+Jene frequently works on technical projects with multiple steps, dependencies, and external services. This skill demonstrates the agent's ability to combine persistent user context with structured planning and controlled external actions.
+
+### Structured Learning & Project Log
+
+The OpenClaw project involves experimentation, configuration changes, troubleshooting, and technical decisions. This skill demonstrates persistent context management while providing a concrete verified Google Workspace output.
+
+Together, the skills demonstrate:
+
+* Persistent configuration-driven behavior.
+* Personalized outputs based on `USER.md`.
+* Consistent personality and formatting from `SOUL.md` and `IDENTITY.md`.
+* Safety and confirmation boundaries from `AGENTS.md`.
+* Correct use of connected services from `TOOLS.md`.
+* Real external-service output rather than terminal-only prompts.
+* Verification after external mutations.
