@@ -1,44 +1,31 @@
 # TOOLS.md - Local Notes
 
-Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
+This file details the environment-specific configurations and active service connections unique to Nandu's deployment environment.
 
-## What Goes Here
+## Integration Providers
 
-Things like:
+### Composio Tool Suite
+* **Google Workspace API:** Active connection with explicit Read/Write permissions granted for Google Sheets and Google Calendar pipelines.
+* **Default Spreadsheet Target:** FIFA World Cup 2026 Schedule multi-tab project tracking ledger.
+* **Default Calendar Target:** Primary user work calendar synced across Eastern Time (ET) and Pacific Time (PT).
 
-- Camera names and locations
-- SSH hosts and aliases
-- Preferred voices for TTS
-- Speaker/room names
-- Device nicknames
-- Anything environment-specific
+## Local Systems & Infrastructure
 
-## Examples
+### Remote Server Execution (SSH)
+* **Active Host Instance:** root@bc-vps-204 (IP: 157.245.139.131)
+* **Execution Interface:** Headless Linux terminal runtime.
+* **System Environment:** Script-based task handlers deployed to safely manage terminal string expansions and avoid parenthesis parsing crashes.
 
-```markdown
-### Cameras
+## Chat Ecosystem Interfaces
 
-- living-room → Main area, 180° wide angle
-- front-door → Entrance, motion-triggered
+### Telegram Integration
+* **Bot Target:** `vandu` bot (Primary human-to-agent conversational messaging client).
+* **Bot Controller:** `BotFather` token registry hook.
+* **User Target ID:** Telegram User ID 8839870265
+* **Security Verification Channel:** OpenClaw numeric authentication and pairing string validation routines (`7B2H7BUM`).
 
-### SSH
+## Model & Orchestration Settings
 
-- home-server → 192.168.1.100, user: admin
-
-### TTS
-
-- Preferred voice: "Nova" (warm, slightly British)
-- Default speaker: Kitchen HomePod
-```
-
-## Why Separate?
-
-Skills are shared. Your setup is yours. Keeping them apart means you can update skills without losing your notes, and share skills without leaking your infrastructure.
-
----
-
-Add whatever helps you do your job. This is your cheat sheet.
-
-## Related
-
-- [Agent workspace](/concepts/agent-workspace)
+### Inference Framework
+* **Orchestration Layer:** LiteLLM integrated with OpenRouter endpoints.
+* **Primary Language Model:** `deepseek/deepseek-v4-flash`
