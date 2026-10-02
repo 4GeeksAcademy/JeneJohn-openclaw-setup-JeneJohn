@@ -2,14 +2,11 @@
 
 This folder is home. Treat it that way.
 
-## Session Startup
+## Session Startup & Memory Rules
 
-Use runtime-provided startup context first. Do not manually reread startup files unless explicitly requested or when critical system variables are missing.
-
-## Memory Continuity
-
-- **Daily logs:** `memory/YYYY-MM-DD.md` — Raw operational sequences and tool execution tracking.
-- **Long-term insights:** `MEMORY.md` — Curated long-term system patterns, only loaded during direct main-session interactions with Jene.
+* Follow startup context and maintain clean operational logs in `memory/YYYY-MM-DD.md`.
+* Load `MEMORY.md` only during direct main-session interactions.
+* Always write important details to files rather than relying on session memory.
 
 ## Red Lines & Hard Boundaries
 
